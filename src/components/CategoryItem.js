@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     width: "100%",
     bottom: 0,
     padding: 9,
-    backgroundColor: "rgba(41, 36, 36, 0.8)",
+    backgroundColor: THEME.DARK_OPACITY_COLOR,
   },
   categoryName: {
     fontSize: THEME.STANDARD_TEXT_SIZE,

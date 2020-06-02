@@ -1,11 +1,19 @@
 import React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { THEME } from "../theme";
 
-export const DishItem = ({ index }) => {
+export const DishItem = ({ index, goToDishPage }) => {
+  const pressHandler = () => {
+    goToDishPage();
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.wrapper}>
+      <TouchableOpacity
+        onPress={pressHandler}
+        activeOpacity={0.5}
+        style={styles.wrapper}
+      >
         <Image
           style={styles.dishImage}
           source={require("../../assets/dish_1.jpg")}
@@ -13,14 +21,15 @@ export const DishItem = ({ index }) => {
         <View style={styles.dishDescription}>
           <Text style={styles.dishName}>Индейка лайт - 5 ингридиентов</Text>
           <Text style={styles.dishIngredients}>
-            Любовь, макороны, помидоры, огурцы, я тебя люблю, а ты *****
+            Любовь, макороны, помидоры, огурцы, Любовь, макороны, помидоры,
+            огурцы
           </Text>
           <View style={styles.dishAdditional}>
             <Text>0 / 11</Text>
             <Text>20</Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -31,7 +40,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flexGrow: 1,
-    paddingBottom: 10,
     borderBottomWidth: 1,
     borderColor: THEME.GREY_COLOR,
   },
@@ -39,6 +47,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
+    paddingBottom: 10,
   },
   dishImage: {
     width: "35%",
