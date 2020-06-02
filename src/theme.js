@@ -4,4 +4,5 @@ export const THEME = {
   MAIN_COLOR: "#353332",
   MAIN_LIGHT_COLOR: "#fff",
   STANDARD_TEXT_SIZE: 16,
+  LARGE_TEXT_SIZE: 18,
 };

@@ -4,15 +4,15 @@ import { DishItem } from "../components/DishItem";
 import { THEME } from "../theme";
 
 export const DishesScreen = ({ route }) => {
-  const [dishes, setDishes] = useState([1, 2, 3]);
+  const [dishes, setDishes] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
 
   return (
     <View style={styles.container}>
       <TextInput style={styles.input} placeholder="Название блюда..." />
       <FlatList
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.toString()}
         data={dishes}
-        renderItem={({ item }) => <DishItem />}
+        renderItem={({ item, index }) => <DishItem index={index} />}
       />
     </View>
   );
@@ -24,13 +24,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 10,
+    width: "100%",
   },
   input: {
-    borderColor: THEME.GREY_COLOR,
-    borderBottomWidth: 1,
     padding: 8,
-    marginBottom: 10,
-    width: "94%",
+    paddingBottom: 15,
+    paddingLeft: 20,
+    width: "100%",
     borderRadius: 5,
+    borderBottomWidth: 1,
+    fontSize: THEME.STANDARD_TEXT_SIZE,
+    borderColor: THEME.GREY_COLOR,
   },
 });
