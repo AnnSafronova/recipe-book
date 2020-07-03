@@ -2,9 +2,38 @@ import React from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { THEME } from "../theme";
 
-export const DishItem = ({ index, goToDishPage }) => {
+export const DishItem = ({ index, dish, goToDishPage }) => {
   const pressHandler = () => {
-    goToDishPage();
+    goToDishPage(dish);
+  };
+
+  const getIngreedientsNumber = () => {
+    return dish.ingredients.length;
+  };
+
+  const getIngreedientEnding = () => {
+    if (dish.ingredients.length === 1) {
+      return "";
+    }
+    if (dish.ingredients.length < 5) {
+      return "а";
+    }
+    return "ов";
+  };
+
+  const getIngreedientsList = () => {
+    let ingrediensString = "";
+    dish.ingredients.forEach((ingredient, index) => {
+      if (index < 5) {
+        ingrediensString += ingredient.title;
+      }
+      if (index < 4) {
+        ingrediensString += ", ";
+      } else if (index < 5) {
+        ingrediensString += "..."; 
+      }
+    });
+    return ingrediensString;
   };
 
   return (
@@ -19,14 +48,16 @@ export const DishItem = ({ index, goToDishPage }) => {
           source={require("../../assets/dish_1.jpg")}
         ></Image>
         <View style={styles.dishDescription}>
-          <Text style={styles.dishName}>Индейка лайт - 5 ингридиентов</Text>
-          <Text style={styles.dishIngredients}>
-            Любовь, макороны, помидоры, огурцы, Любовь, макороны, помидоры,
-            огурцы
+          <Text style={styles.dishName}>
+            {dish.title} - {getIngreedientsNumber()} ингридиент
+            {getIngreedientEnding()}
           </Text>
+          <View style={styles.dishIngredients}>
+            <Text>{getIngreedientsList()}</Text>
+          </View>
           <View style={styles.dishAdditional}>
-            <Text>0 / 11</Text>
-            <Text>20</Text>
+            <Text>0 / {getIngreedientsNumber()}</Text>
+            <Text>{dish.cookingTime}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -46,12 +77,12 @@ const styles = StyleSheet.create({
   wrapper: {
     width: "100%",
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     paddingBottom: 10,
   },
   dishImage: {
-    width: "35%",
-    height: 120,
+    width: "37%",
+    height: 125,
     marginRight: 10,
     backgroundColor: "orange",
   },

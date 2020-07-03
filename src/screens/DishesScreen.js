@@ -2,22 +2,25 @@ import React, { useState } from "react";
 import { View, StyleSheet, FlatList, TextInput } from "react-native";
 import { DishItem } from "../components/DishItem";
 import { THEME } from "../theme";
+import { dishList } from '../sample/dishes';
 
 export const DishesScreen = ({ route, navigation }) => {
-  const [dishes, setDishes] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
+  const [dishes, setDishes] = useState(dishList.filter(dish => dish.categoryId === route.params.categoryId));
 
-  const goToDishPage = () => {
-    navigation.navigate("DishPage");
+  const goToDishPage = (dish) => {
+    navigation.navigate("DishPage", {
+      dish
+    });
   };
 
   return (
     <View style={styles.container}>
       <TextInput style={styles.input} placeholder="Название блюда..." />
       <FlatList
-        keyExtractor={(item) => item.toString()}
+        keyExtractor={(item) => item.id.toString()}
         data={dishes}
         renderItem={({ item, index }) => (
-          <DishItem index={index} goToDishPage={goToDishPage} />
+          <DishItem dish={item} index={index} goToDishPage={goToDishPage} />
         )}
       />
     </View>

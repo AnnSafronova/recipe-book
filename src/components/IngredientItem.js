@@ -2,11 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { THEME } from "../theme";
 
-export const IngredientItem = () => {
+export const IngredientItem = ({ ingredient }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Макороны</Text>
-      <Text style={styles.text}>5 - 10 шт.</Text>
+      <Text style={styles.text}>{ingredient.title}</Text>
+      <Text style={styles.text}>{ingredient.amount}</Text>
     </View>
   );
 };

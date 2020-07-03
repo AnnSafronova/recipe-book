@@ -4,33 +4,29 @@ import { View, StyleSheet, Text, Image, FlatList } from "react-native";
 import { THEME } from "../theme";
 import { IngredientItem } from "../components/IngredientItem";
 
-export const DishScreen = ({ navigation }) => {
-  const [mode, setMode] = useState(2);
-  const [ingredients, setIngredients] = useState([
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-  ]);
-
+export const DishScreen = ({ navigation, route }) => {
+  const [mode, setMode] = useState(1);
   let content;
+
+  const getMinuteEnding = () => {
+    if (route.params.dish === 1) {
+      return "а";
+    }
+    if (route.params.dish < 5) {
+      return "ы";
+    }
+    return "";
+  };
+
   if (mode === 1) {
     content = (
       <FlatList
         style={{ width: "100%" }}
-        keyExtractor={(item) => item.toString()}
-        data={ingredients}
-        renderItem={({ item, index }) => <IngredientItem index={index} />}
+        keyExtractor={(item, index) => index.toString()}
+        data={route.params.dish.ingredients}
+        renderItem={({ item, index }) => (
+          <IngredientItem ingredient={item} index={index} />
+        )}
       />
     );
   }
@@ -38,11 +34,11 @@ export const DishScreen = ({ navigation }) => {
     content = (
       <FlatList
         style={{ width: "100%" }}
-        keyExtractor={(item) => item.toString()}
-        data={ingredients}
+        keyExtractor={(item, index) => index.toString()}
+        data={route.params.dish.steps}
         renderItem={({ item }) => (
           <Text style={styles.recipeStep}>
-            1. Просто взять и приготовить это блюдо, а потом съесть его.
+            {item.number}. {item.text}
           </Text>
         )}
       />
@@ -57,8 +53,10 @@ export const DishScreen = ({ navigation }) => {
           source={require("../../assets/dish_1.jpg")}
         />
         <View style={styles.dishDescription}>
-          <Text style={styles.dishText}>Индейка лайт</Text>
-          <Text style={styles.dishText}>20</Text>
+          <Text style={styles.dishText}>{route.params.dish.title}</Text>
+          <Text style={styles.dishText}>
+            {route.params.dish.cookingTime} минут{getMinuteEnding()}
+          </Text>
         </View>
       </View>
       <View style={styles.dishControls}>
