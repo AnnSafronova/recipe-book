@@ -50,7 +50,7 @@ export const DishScreen = ({ navigation, route }) => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.dishImage}
-          source={require("../../assets/dish_1.jpg")}
+          source={route.params.dish.src}
         />
         <View style={styles.dishDescription}>
           <Text style={styles.dishText}>{route.params.dish.title}</Text>

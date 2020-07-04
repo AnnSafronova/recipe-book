@@ -45,7 +45,7 @@ export const DishItem = ({ index, dish, goToDishPage }) => {
       >
         <Image
           style={styles.dishImage}
-          source={require("../../assets/dish_1.jpg")}
+          source={dish.src}
         ></Image>
         <View style={styles.dishDescription}>
           <Text style={styles.dishName}>
